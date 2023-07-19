@@ -1,0 +1,67 @@
+<!-- Formulario para agregar/editar una persona -->
+<div class="container mt-4">
+    <h2>Registrarse</h2>
+    <form (ngSubmit)="guardarPersona()">
+        <!-- Input para el nombre -->
+        <div class="mb-3">
+            <label for="nombreInput" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreInput" name="nombre" [(ngModel)]="nuevaPersona.nombre" required>
+            <div *ngIf="!nombreValido" class="text-danger">
+                Nombre es requerido.
+            </div>
+        </div>
+
+        <!-- Input para la edad -->
+        <div class="mb-3">
+            <label for="edadInput" class="form-label">Edad</label>
+            <input type="number" class="form-control" id="edadInput" name="edad" [(ngModel)]="nuevaPersona.edad" required>
+            <div *ngIf="!edadValida" class="text-danger">
+                Edad debe ser mayor o igual a 18 años.
+            </div>
+        </div>
+
+        <!-- Input para el correo electrónico -->
+        <div class="mb-3">
+            <label for="emailInput" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="emailInput" name="email" [(ngModel)]="nuevaPersona.email" required>
+            <div *ngIf="!correoValido" class="text-danger">
+                Correo electrónico es inválido.
+            </div>
+        </div>
+
+        <!-- Botón para agregar/editar la persona -->
+        <button type="submit" class="btn btn-primary">{{ editandoPersona ? 'Guardar Cambios' : 'Registrarse' }}</button>
+    </form>
+</div>
+
+
+    <!-- Tabla para mostrar la lista de personas -->
+    <div class="container mt-4">
+        <h2>Lista de Personas</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Correo Electrónico</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let persona of personas; let i = index">
+                    <td>{{ persona.id }}</td>
+                    <td>{{ persona.nombre }}</td>
+                    <td>{{ persona.edad }}</td>
+                    <td>{{ persona.email }}</td>
+                    <td>
+                        <button class="btn btn-primary" (click)="editarPersona(i)">Editar</button>
+                        <button class="btn btn-danger" (click)="eliminarPersona(i)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
